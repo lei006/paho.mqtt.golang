@@ -114,6 +114,8 @@ type Client interface {
 	// OptionsReader returns a ClientOptionsReader which is a copy of the clientoptions
 	// in use by the client.
 	OptionsReader() ClientOptionsReader
+
+	GetOptions() *ClientOptions
 }
 
 // client implements the Client interface
@@ -187,6 +189,10 @@ func (c *client) AddRoute(topic string, callback MessageHandler) {
 	if callback != nil {
 		c.msgRouter.addRoute(topic, callback)
 	}
+}
+
+func (c *client) GetOptions() *ClientOptions {
+	return &c.options
 }
 
 // IsConnected returns a bool signifying whether
